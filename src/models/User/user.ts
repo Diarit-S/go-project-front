@@ -11,7 +11,7 @@ export interface User {
 /**
  * isValidUserMail
  */
-function isValidUserMail(User: User): boolean {
+export function isValidUserMail(User: User): boolean {
   const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(User.email);
 }
@@ -19,7 +19,7 @@ function isValidUserMail(User: User): boolean {
 /**
  * isValidPassword
  */
-function isValidPassword(User: User): boolean {
+export function isValidPassword(User: User): boolean {
   const passwordRegex: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
   return passwordRegex.test(User.password);
 }
