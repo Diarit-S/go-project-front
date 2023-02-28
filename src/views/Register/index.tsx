@@ -31,14 +31,14 @@ const Register: React.FC<RegisterProps> = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const userToSubmit: User = {email, password, firstName, lastName, role};
+    const userToSubmit = {email, password, firstName, lastName, role};
 
-    if(!isValidUserMail(userToSubmit)) {
+    if(!isValidUserMail(email)) {
       setErrorMessage("L'email est invalide");
       return;
     }
 
-    if(!isValidPassword(userToSubmit)) {
+    if(!isValidPassword(password)) {
       setErrorMessage("Le mail est invalide");
       return;
     }
@@ -59,7 +59,7 @@ const Register: React.FC<RegisterProps> = () => {
 
 // #region API call
   const registerUser = (user: User): void => {
-    fetch('', {
+    fetch(`${import.meta.env.VITE_API_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

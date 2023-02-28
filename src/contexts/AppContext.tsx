@@ -1,10 +1,6 @@
 import * as React from 'react'
 import { AppCtxType } from 'models/AppContext'
 
-import { Company } from 'models/Company'
-import { Feature } from 'models/Feature'
-import { Setting } from 'models/Setting'
-
 export const AppCtx = React.createContext<AppCtxType | null>(null)
 
 export const AppCtxProvider: React.FC<React.ReactNode> = ({ children }) => {

@@ -10,8 +10,9 @@ import { RequireAuth } from '../Layouts/RequireAuth'
 const Home = Loadable(lazy(() => import('../views/Home')))
 
 import React from 'react'
-import { RequireRole } from '@/Layouts/RequireRole'
-import { UserRole } from '@/models/User/user-role-enum'
+
+import { CustomerRoutes } from './CustomerRoutes'
+import { CompanyRoutes } from './CompanyRoutes'
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -19,14 +20,7 @@ const MainRoutes = {
   path: '/',
   element: <MainLayout />,
   children: [
-    {
-      path: '/customer',
-      element: (
-        <RequireRole role={UserRole.USER}>
-          <Home />
-        </RequireRole>
-      )
-    },
+    CustomerRoutes, CompanyRoutes,
   ]
 }
 

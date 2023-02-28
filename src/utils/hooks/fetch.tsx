@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { HTTPMethod } from 'models/Fetch'
+import { HTTPMethod } from '@/models/Fetch'
 
 export const useFetch = (
   url: string,

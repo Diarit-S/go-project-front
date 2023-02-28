@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useAuth } from '@/utils/hooks/auth'
 import { useNavigate } from 'react-router-dom'
 
+import { AuthContext } from '@/contexts/AuthContext'
+
 // material-ui
 import { useTheme } from '@mui/material/styles'
 import {
@@ -35,12 +37,14 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { getErrorMessage } from '@/utils/errors'
 import { doesUserHavePermission } from '@/utils/roles'
 import { HTTPMethod } from '@/models/Fetch'
+import { UserRole } from '@/models/User/user-role-enum'
 
 export interface PasswordLoginCredentials {
   eMail: string
   password: string
 }
 const Login = () => {
+  const authContext = React.useContext(AuthContext)
   const theme = useTheme()
   const [checked, setChecked] = useState(true)
   const navigate = useNavigate()
@@ -59,19 +63,20 @@ const Login = () => {
     const auth = window.btoa(`${eMail}:${password}`)
     const requestHeaders = new Headers({ Authorization: `Basic ${auth}` })
     const requestConfig = { method: HTTPMethod.POST, headers: requestHeaders }
-    console.log(import.meta.env)
-    console.log(requestConfig)
-
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/login`,
-        requestConfig
-      )
+      // const response = await fetch(
+      //   `${import.meta.env.VITE_API_URL}/login`,
+      //   requestConfig
+      // )
       // if (!response.ok || [404, 403].includes(response.status)) {
       //   throw new Error('An error occured')
       // }
-      const responseData = await response.json()
-      const userJwt = responseData.userJwt
+      // const responseData = await response.json()
+      // const userJwt = responseData.token
+      // localStorage.setItem('userJwt', userJwt)
+      // authContext.setUser(responseData.user)
+      authContext.setUser({firstName: 'test', lastName: 'test', email: 'test@test.fr', role: UserRole.USER})
+      navigate('/customer/home', { replace: true })
     } catch (error) {
       console.error(error)
     }
