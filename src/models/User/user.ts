@@ -1,3 +1,5 @@
+import { UserRole } from "./user-role-enum";
+
 export interface User {
   firstName?: string;
   lastName?: string;

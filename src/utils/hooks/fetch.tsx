@@ -8,6 +8,7 @@ export const useFetch = (
   method: HTTPMethod = HTTPMethod.GET,
   headers: Headers = new Headers({ Authorization: `Bearer ${sessionStorage.getItem('jwt')}` })
 ) => {
+  console.log(url)
   const [data, setData] = useState<Record<string, any>>({})
 
   const [isLoading, setIsLoading] = useState(false)

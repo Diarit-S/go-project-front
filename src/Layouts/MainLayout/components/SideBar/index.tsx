@@ -14,7 +14,6 @@ import type { MenuItem } from 'menuItems/models'
 
 import { drawerWidth } from 'utils/constants'
 
-import { useFeature } from 'utils/hooks/feature.alobees'
 
 import React from 'react'
 

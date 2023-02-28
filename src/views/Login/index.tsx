@@ -34,15 +34,15 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 //utils
 import { getErrorMessage } from '@/utils/errors'
 import { doesUserHavePermission } from '@/utils/roles'
+import { HTTPMethod } from '@/models/Fetch'
 
 export interface PasswordLoginCredentials {
-  userName: string
+  eMail: string
   password: string
 }
 const Login = () => {
   const theme = useTheme()
   const [checked, setChecked] = useState(true)
-  const { logWithCompany } = useAuth()
   const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false)
@@ -55,18 +55,21 @@ const Login = () => {
   }
 
   const login = async (credentials: PasswordLoginCredentials): Promise<void> => {
-    const { userName, password } = credentials
-    const auth = window.btoa(`${userName}:${password}`)
+    const { eMail, password } = credentials
+    const auth = window.btoa(`${eMail}:${password}`)
     const requestHeaders = new Headers({ Authorization: `Basic ${auth}` })
-    const requestConfig = { headers: requestHeaders }
+    const requestConfig = { method: HTTPMethod.POST, headers: requestHeaders }
+    console.log(import.meta.env)
+    console.log(requestConfig)
+
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_ALOBEES_API_URL}/auth/login`,
+        `${import.meta.env.VITE_API_URL}/login`,
         requestConfig
       )
-      if (!response.ok || [404, 403].includes(response.status)) {
-        throw new Error('An error occured')
-      }
+      // if (!response.ok || [404, 403].includes(response.status)) {
+      //   throw new Error('An error occured')
+      // }
       const responseData = await response.json()
       const userJwt = responseData.userJwt
     } catch (error) {
@@ -88,11 +91,11 @@ const Login = () => {
         />
         <Formik
           initialValues={{
-            userName: '',
+            eMail: '',
             password: ''
           }}
           validationSchema={Yup.object().shape({
-            userName: Yup.string().max(255).required('Phone number is required'),
+            eMail: Yup.string().max(255).required('Email is required'),
             password: Yup.string().max(255).required('Password is required')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
@@ -109,23 +112,23 @@ const Login = () => {
           }}>
           {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
             <form noValidate onSubmit={handleSubmit}>
-              <FormControl fullWidth error={Boolean(touched.userName && errors.userName)}>
-                <InputLabel htmlFor="outlined-adornment-phone-login">
-                  Phone number / Username
+              <FormControl fullWidth error={Boolean(touched.eMail && errors.eMail)}>
+                <InputLabel htmlFor="outlined-adornment-email-login">
+                  Email
                 </InputLabel>
                 <OutlinedInput
-                  id="outlined-adornment-phone-login"
-                  type="phone"
-                  value={values.userName}
-                  name="userName"
+                  id="outlined-adornment-email-login"
+                  type="text"
+                  value={values.eMail}
+                  name="eMail"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  label="Phone number / Username"
+                  label="Email"
                   inputProps={{}}
                 />
-                {touched.userName && errors.userName && (
-                  <FormHelperText error id="standard-weight-helper-text-phone-login">
-                    {errors.userName}
+                {touched.eMail && errors.eMail && (
+                  <FormHelperText error id="standard-weight-helper-text-email-login">
+                    {errors.eMail}
                   </FormHelperText>
                 )}
               </FormControl>

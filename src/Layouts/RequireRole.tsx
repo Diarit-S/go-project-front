@@ -3,6 +3,7 @@ import { doesUserHavePermission } from '@/utils/roles'
 
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '@/utils/hooks/auth'
+import { UserRole } from '@/models/User/user-role-enum'
 
 export const RequireRole = ({
   children,

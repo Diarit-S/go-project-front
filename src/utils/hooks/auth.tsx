@@ -11,7 +11,7 @@ export const useAuth = () => {
     const requestConfig = { headers: myHeaders }
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_ALOBEES_API_URL}/auth/company/${companyId}`,
+        `${import.meta.env.VITE_API_URL}/auth/company/${companyId}`,
         requestConfig
       )
       const responseData = await response.json()

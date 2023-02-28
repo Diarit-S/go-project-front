@@ -11,6 +11,7 @@ const Home = Loadable(lazy(() => import('../views/Home')))
 
 import React from 'react'
 import { RequireRole } from '@/Layouts/RequireRole'
+import { UserRole } from '@/models/User/user-role-enum'
 
 // ==============================|| MAIN ROUTING ||============================== //
 
