@@ -1,15 +1,38 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import { ThemeProvider } from '@mui/material/styles'
+import { CssBaseline, StyledEngineProvider } from '@mui/material'
+
+// defaultTheme
+import themes from './themes'
+
+// project imports
+import NavigationScroll from './Layouts/NavigationScroll'
+
+// Contexts
+// import { RegisterFormProvider } from './views/Register/RegisterContext'
+
+// routing
+import Routes from './routes'
+
+import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="flex h-screen">
-      <h1 className="text-3xl font-bold underline">Go Project Front!</h1>
-    </div>
-  );
+    <Router>
+      <StyledEngineProvider>
+        <ThemeProvider theme={themes()}>
+          <CssBaseline />
+          <div className="App">
+            <NavigationScroll>
+              <Routes />
+            </NavigationScroll>
+          </div>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </Router>
+  )
 }
 
-export default App;
+export default App
