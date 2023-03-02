@@ -18,15 +18,14 @@ export const RequireRole = ({
 
    if (!authContext.user) {
     return <Navigate to="/login" replace />
-  }
-
+   }
+  
   if (!doesUserHavePermission(authContext.user, role)) {
     //TODO Display a ui error to notify the role that the route is not accessible for him
     return <Navigate to="/login" replace />
   }
 
   return <>
-    <div>test</div>
     {children}
   </>
 }

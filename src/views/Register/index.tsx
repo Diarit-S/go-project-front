@@ -11,7 +11,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Alert
+  Alert,
+  SelectChangeEvent
 } from "@mui/material";
 
 interface RegisterProps {}
@@ -52,13 +53,13 @@ const Register: React.FC<RegisterProps> = () => {
     setRole(UserRole.USER);
   };
 
-  const handleRoleChange = (event: React.ChangeEvent<{ value: unknown }>): void => {
+  const handleRoleChange = (event: SelectChangeEvent): void => {
     setRole(event.target.value as UserRole);
   };
 // #endregion handler
 
 // #region API call
-  const registerUser = (user: User): void => {
+  const registerUser = (user: any): void => {
     fetch(`${import.meta.env.VITE_API_URL}/register`, {
       method: "POST",
       headers: {

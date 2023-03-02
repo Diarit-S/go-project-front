@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { AppCtx } from 'AppContext'
-import { AppCtxType } from 'models/AppContext'
+import { AppCtx } from '@/contexts/AppContext'
+import { AppCtxType } from '@/models/AppContext'
 
 // material-ui
 import { useTheme } from '@mui/material/styles'
@@ -21,7 +21,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import React from 'react'
 
 // Types
-import { MenuItem } from 'menuItems/models'
+import { MenuItem } from '@/menuItems/models'
 
 import { useTranslation } from 'react-i18next'
 
@@ -50,17 +50,6 @@ export const NavItem = ({ item, level }: Props) => {
     }
   }, [location])
 
-  const itemIcon = item?.icon ? (
-    <item.icon stroke={1.5} size="1.5rem" />
-  ) : (
-    <FiberManualRecordIcon
-      sx={{
-        width: selectedMenuItem === item?.id ? 8 : 6,
-        height: selectedMenuItem === item?.id ? 8 : 6
-      }}
-      fontSize={level > 0 ? 'inherit' : 'medium'}
-    />
-  )
 
   const itemHandler = (id: string) => {
     selectMenuItem(id)
@@ -93,7 +82,6 @@ export const NavItem = ({ item, level }: Props) => {
       }}
       selected={selectedMenuItem === item?.id}
       onClick={() => itemHandler(item.id)}>
-      <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
       <ListItemText
         primary={
           <Typography

@@ -14,8 +14,8 @@ export const CustomerRoutes = {
   ),
   children: [
     { path: '/customer/home', element: <Home /> },
-    { path: '/customer/Appointments', element: <Appointments /> },
-    { path: '/customer/Appointment/:id', element: <Appointment /> },
+    { path: '/customer/appointments', element: <Appointments /> },
+    { path: '/customer/appointment/:id', element: <Appointment /> },
   ]
 }
 

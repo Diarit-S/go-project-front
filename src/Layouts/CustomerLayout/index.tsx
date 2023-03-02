@@ -15,7 +15,6 @@ const Main = styled('div')()
 const CustomerLayout = () => {
   return (
     <Box sx={{ display: 'flex' }}>
-      <div>I'm the customer layout</div>
       <Outlet />
     </Box>
   )

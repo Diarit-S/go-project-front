@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { useState } from 'react'
-import { useAuth } from '@/utils/hooks/auth'
 import { useNavigate } from 'react-router-dom'
 
 import { AuthContext } from '@/contexts/AuthContext'
@@ -58,25 +57,38 @@ const Login = () => {
     event.preventDefault()
   }
 
+  const getRouteNameBasedOnUserRole = (role: UserRole): string => {
+    const userRoleRouteNameMap = {
+      [UserRole.ADMIN]: 'company',
+      [UserRole.USER]: 'customer',
+      [UserRole.EMPLOYEE]: 'company'
+    }
+    return userRoleRouteNameMap[role]
+  }
+
   const login = async (credentials: PasswordLoginCredentials): Promise<void> => {
     const { eMail, password } = credentials
-    const auth = window.btoa(`${eMail}:${password}`)
-    const requestHeaders = new Headers({ Authorization: `Basic ${auth}` })
-    const requestConfig = { method: HTTPMethod.POST, headers: requestHeaders }
+    // const auth = window.btoa(`${eMail}:${password}`)
+    // const requestHeaders = new Headers({ Authorization: `Basic ${auth}` })
+    const requestConfig = {
+      method: HTTPMethod.POST,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email: eMail, password })
+    }
     try {
-      // const response = await fetch(
-      //   `${import.meta.env.VITE_API_URL}/login`,
-      //   requestConfig
-      // )
-      // if (!response.ok || [404, 403].includes(response.status)) {
-      //   throw new Error('An error occured')
-      // }
-      // const responseData = await response.json()
-      // const userJwt = responseData.token
-      // localStorage.setItem('userJwt', userJwt)
-      // authContext.setUser(responseData.user)
-      authContext.setUser({firstName: 'test', lastName: 'test', email: 'test@test.fr', role: UserRole.USER})
-      navigate('/customer/home', { replace: true })
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/login`,
+        requestConfig
+      )
+      if (!response.ok || [404, 403].includes(response.status)) {
+        throw new Error('An error occured')
+      }
+      const user = await response.json()
+      sessionStorage.setItem('jwt', user.token)
+      authContext.setUser({id: user.uid, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.ROLE})
+      navigate(`/${getRouteNameBasedOnUserRole(user.ROLE)}/home`, { replace: true })
     } catch (error) {
       console.error(error)
     }
@@ -91,9 +103,6 @@ const Login = () => {
           padding: '40px',
           maxWidth: '400px'
         }}>
-        <img
-          style={{ height: '50px', margin: 'auto', display: 'block', marginBottom: '60px' }}
-        />
         <Formik
           initialValues={{
             eMail: '',

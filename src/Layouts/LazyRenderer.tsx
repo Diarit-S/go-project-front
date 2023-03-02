@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Loader from 'Components/atoms/Loaders/Loader'
+import Loader from '@/Components/atoms/Loaders/Loader'
 
 export const LazyRenderer = ({
   isLoading,

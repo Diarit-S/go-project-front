@@ -2,28 +2,23 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typo
 import React from 'react';
 
 interface Props {
-  onServiceClick: (serviceId: string) => void;
-  service: any
+  store: any
+  onCardClick: () => void;
 }
 
-export const ServiceCard = ({onServiceClick, service}: Props) => { 
-   return (
-    <Card sx={{ maxWidth: 345, marginBottom: '15px' }} >
+export const CustomerStoreCard = ({store, onCardClick}: Props) => {
+  return (
+    <Card sx={{ maxWidth: 345 }} onClick={onCardClick}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {service.name}
+            {store.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {service.price} €
+            {store.adress} {store.postCode} {store.city}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions onClick={() => onServiceClick(service.serviceUid)}>
-        <Button size="small" color="primary">
-          View Service
-        </Button>
-      </CardActions>
     </Card>
   );
 }

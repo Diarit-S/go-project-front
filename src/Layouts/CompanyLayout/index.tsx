@@ -13,8 +13,7 @@ const Main = styled('div')()
 
 const CompanyLayout = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
-      <div>I'm the company layout</div>
+    <Box sx={{ display: 'flex', backgroundColor: 'lightblue', padding: '30px', flexDirection: 'column'}}>
       <Outlet />
     </Box>
   )
