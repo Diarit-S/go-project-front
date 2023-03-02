@@ -9,12 +9,13 @@ import { BrowserView, MobileView } from 'react-device-detect'
 // import LogoSection from '../LogoSection'
 import { NavGroup } from './NavGroup'
 
-import { menuItems } from 'menuItems'
-import type { MenuItem } from 'menuItems/models'
+import { menuItems } from '@/menuItems'
+import type { MenuItem } from '@/menuItems/models'
 
-import { drawerWidth } from 'utils/constants'
+import { drawerWidth } from '@/utils/constants'
 
-import { useFeature } from 'utils/hooks/feature.alobees'
+import { AuthContext } from '@/contexts/AuthContext'
+
 
 import React from 'react'
 
@@ -27,13 +28,14 @@ interface Props {
 
 export const Sidebar = ({ drawerOpen, drawerToggle }: Props) => {
   const theme = useTheme()
-  const { isFeatureActive } = useFeature()
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'))
+
+  const { user } = React.useContext(AuthContext)
 
   const renderNavItems = () =>
     menuItems
       .filter(
-        (navItem: MenuItem) => !navItem.requiredModule || isFeatureActive(navItem.requiredModule)
+        (navItem: MenuItem) => user?.role === navItem.requiredRole
       )
       .map((menuItem) => <NavGroup key={menuItem.id} item={menuItem} />)
 

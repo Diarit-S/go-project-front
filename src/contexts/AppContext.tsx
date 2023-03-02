@@ -1,20 +1,18 @@
 import * as React from 'react'
-import { AppCtxType } from 'models/AppContext'
+import { AppCtxType } from '@/models/AppContext'
 
-import { Company } from 'models/Company'
-import { Feature } from 'models/Feature'
-import { Setting } from 'models/Setting'
+interface Props {
+  children: React.ReactNode;
+}
 
 export const AppCtx = React.createContext<AppCtxType | null>(null)
 
-export const AppCtxProvider: React.FC<React.ReactNode> = ({ children }) => {
+export const AppCtxProvider: React.FC<Props> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(true)
   const [selectedMenuItem, setSelectedMenuItem] = React.useState('')
-  const [userSettings, setUserSettings] = React.useState<Setting[]>([])
-  const [userFeatures, setUserFeatures] = React.useState<Feature[]>([])
-  const [userCompany, setUserCompany] = React.useState<Company | null>(null)
 
   const toggleMenu = () => {
+    console.log('toggleMenu')
     setIsMenuOpen(!isMenuOpen)
   }
   const selectMenuItem = (item: string) => {
@@ -26,12 +24,6 @@ export const AppCtxProvider: React.FC<React.ReactNode> = ({ children }) => {
     selectedMenuItem,
     toggleMenu,
     selectMenuItem,
-    userSettings,
-    setUserSettings,
-    userFeatures,
-    setUserFeatures,
-    userCompany,
-    setUserCompany
   }
 
   return <AppCtx.Provider value={contextDefaultValue}>{children}</AppCtx.Provider>

@@ -4,7 +4,7 @@ import { Box, Divider, List, Typography } from '@mui/material'
 import { NavItem } from './components/NavItem'
 
 // Types
-import { MenuItem } from 'menuItems/models'
+import { MenuItem } from '@/menuItems/models'
 
 import { useTranslation } from 'react-i18next'
 

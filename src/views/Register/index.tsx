@@ -11,7 +11,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Alert
+  Alert,
+  SelectChangeEvent
 } from "@mui/material";
 
 interface RegisterProps {}
@@ -31,14 +32,14 @@ const Register: React.FC<RegisterProps> = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    const userToSubmit: User = {email, password, firstName, lastName, role};
+    const userToSubmit = {email, password, firstName, lastName, role};
 
-    if(!isValidUserMail(userToSubmit)) {
+    if(!isValidUserMail(email)) {
       setErrorMessage("L'email est invalide");
       return;
     }
 
-    if(!isValidPassword(userToSubmit)) {
+    if(!isValidPassword(password)) {
       setErrorMessage("Le mail est invalide");
       return;
     }
@@ -52,14 +53,14 @@ const Register: React.FC<RegisterProps> = () => {
     setRole(UserRole.USER);
   };
 
-  const handleRoleChange = (event: React.ChangeEvent<{ value: unknown }>): void => {
+  const handleRoleChange = (event: SelectChangeEvent): void => {
     setRole(event.target.value as UserRole);
   };
 // #endregion handler
 
 // #region API call
-  const registerUser = (user: User): void => {
-    fetch('', {
+  const registerUser = (user: any): void => {
+    fetch(`${import.meta.env.VITE_API_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -2,21 +2,15 @@
 import { useTheme } from '@mui/material/styles'
 import { Avatar, Box, ButtonBase } from '@mui/material'
 
-// project imports
-// import LogoSection from '../LogoSection';
-// import SearchSection from './SearchSection';
-// import ProfileSection from './ProfileSection';
-// import NotificationSection from './NotificationSection';
-
 import { Link } from 'react-router-dom'
-
-import ProfileSection from './Profile'
-
-import React from 'react'
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
-export const TheHeader = () => {
+interface Props {
+  handleLeftDrawerToggle: () => void
+}
+
+export const TheHeader = ({ handleLeftDrawerToggle }: Props) => {
   const theme = useTheme()
 
   return (
@@ -46,17 +40,14 @@ export const TheHeader = () => {
                 color: theme.palette.primary.light
               }
             }}
-            color="inherit">
+            color="inherit"
+            onClick={handleLeftDrawerToggle}
+          >
+            
           </Avatar>
         </ButtonBase>
       </Box>
       {/* header search */}
-      {/* // <SearchSection /> */}
-      <Box sx={{ flexGrow: 1 }} />
-      <Box sx={{ flexGrow: 1 }} />
-      {/* notification & profile */}
-      {/* // <NotificationSection /> */}
-      <ProfileSection />
     </>
   )
 }
